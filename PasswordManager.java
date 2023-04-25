@@ -51,9 +51,15 @@ public class PasswordManager<K,V> implements Map<K,V> {
     // TODO: remove
     @Override
     public V remove(K key) {
-
-
-
+        for (int i = 0; i <_passwords.length; i++){
+            if(_passwords[i].getWebsite().equals(key)){
+                //set the passwords
+                Account[] container;
+                container.set
+            }
+// key = website!
+// value = password!
+        }
         return null;
     }
 

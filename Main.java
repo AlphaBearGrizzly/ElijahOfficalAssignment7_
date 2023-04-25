@@ -41,8 +41,8 @@ public class Main {
 
 
                     } else if (input.equals("Delete account")) {
-                        System.out.println("DELETE ACCOUNT");
-
+                        input = scanner.nextLine();
+                        passwordManager.remove(input);
 
                     } else if (input.equals("Check duplicate password")) {
 
