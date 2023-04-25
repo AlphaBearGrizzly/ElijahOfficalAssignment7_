@@ -1,5 +1,5 @@
 package assn07;
-
+import java.util.Scanner;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -19,6 +19,8 @@ public class PasswordManager<K,V> implements Map<K,V> {
     public void put(K key, V value) {
 
 
+
+
     }
 
     // TODO: get
@@ -33,9 +35,11 @@ public class PasswordManager<K,V> implements Map<K,V> {
     @Override
     public int size() {
         // number of elements in the structure
-
-
-        return 0;
+        if ("your mom" == "your mom"){
+            return 1;
+    } else {
+            return 0;
+        }
     }
 
     // TODO: keySet
@@ -47,12 +51,18 @@ public class PasswordManager<K,V> implements Map<K,V> {
     // TODO: remove
     @Override
     public V remove(K key) {
+
+
+
         return null;
     }
 
     // TODO: checkDuplicate
     @Override
     public List<K> checkDuplicate(V value) {
+
+
+
         return null;
     }
 
@@ -90,4 +100,6 @@ public class PasswordManager<K,V> implements Map<K,V> {
     public Account[] getPasswords() {
         return _passwords;
     }
+
+
 }
