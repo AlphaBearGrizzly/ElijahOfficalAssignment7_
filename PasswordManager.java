@@ -1,9 +1,5 @@
 package assn07;
-import java.util.Scanner;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 public class PasswordManager<K,V> implements Map<K,V> {
     private static final String MASTER_PASSWORD = "password123";
@@ -42,6 +38,16 @@ public class PasswordManager<K,V> implements Map<K,V> {
             if (_passwords[hashNum] == null) {
                 _passwords[hashNum].setPassword(value);
                 _passwords[hashNum].setWebsite(key);
+            } else {
+                Account curNode = _passwords[hashNum];
+                while (_passwords[hashNum].getNext() != null){
+                    curNode = curNode.getNext();
+                }
+                Account newNode = null;
+                newNode.setPassword(value);
+                newNode.setWebsite(key);
+                curNode.setNext(newNode);
+                //this adds that chain to handle collisions
             }
         }
     }
@@ -60,8 +66,14 @@ public class PasswordManager<K,V> implements Map<K,V> {
     // TODO: size
     @Override
     public int size() {
+        int returnValue = 0;
         // number of elements in the structure
-        return _passa
+        for (int i = 0; i <= _passwords.length - 1; i++) {
+            if (this._passwords[i] != null) {
+                returnValue += 1;
+            }
+        }
+        return returnValue;
     }
 
     // TODO: keySet
@@ -88,7 +100,7 @@ public class PasswordManager<K,V> implements Map<K,V> {
                     //container[1].setPassword(_passwords[i].getWebsite());
                     // remove the thing
                     V value = (V) _passwords[i].getPassword(); //this casts it
-                    _passwords[i-1].setNext(_passwords[i+1]);
+                    _passwords[i] = null;
                     return value;
                 }
             }
@@ -103,9 +115,28 @@ public class PasswordManager<K,V> implements Map<K,V> {
     @Override
     public List<K> checkDuplicate(V value) {
 
+        /**
+         * Returns a list the website names
+         * that have a password matching the parameter
+         *
+         * @return A List containing the keys of accounts whose password
+         * match the parameter
+         */
+        List<K> keySet = new ArrayList<>();
 
+        for (int i = 0; i <_passwords.length; i++){
+            if (this._passwords[i] != null){
+                if(_passwords[i].getPassword().equals(value)){
+                    //Account[] container = new Account[5];
+                    //container[1].setPassword(_passwords[i].getWebsite());
+                    // remove the thing
+                    keySet.add((K)_passwords[i].getWebsite());
 
-        return null;
+                }
+            }
+
+        }
+        return keySet;
     }
 
     // TODO: checkMasterPassword
