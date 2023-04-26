@@ -35,7 +35,6 @@ public class Main {
                     if (input.equals("New password")) {
 
 
-
                         // set passgate back to
                     } else if (input.equals("Get password")) {
 

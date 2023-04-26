@@ -18,47 +18,83 @@ public class PasswordManager<K,V> implements Map<K,V> {
     @Override
     public void put(K key, V value) {
 
-
-
-
+        /**
+         * Creates an Account object using the key value pair,
+         * and inserts the object at the appropriate index
+         * based on the hash of they key. If the key already
+         * exists in map, update its value.
+         * @param key: the website name
+         * @param value: the password
+         */
+        Account[] putContainer;
+        // if the key already exists in the map, update the value
+        boolean valueExists = false;
+        for (int i = 0; i <_passwords.length; i++){
+            if (this._passwords[i] != null){
+                if(_passwords[i].getWebsite().equals(key)){
+                    _passwords[i].setPassword(value);
+                    valueExists = true;
+                }
+            }
+        }
+        if (valueExists == false){
+            int hashNum = Math.abs(key.hashCode() % _passwords.length);
+            if (_passwords[hashNum] == null) {
+                _passwords[hashNum].setPassword(value);
+                _passwords[hashNum].setWebsite(key);
+            }
+        }
     }
 
     // TODO: get
     @Override
     public V get(K key) {
-
-
-        return null;
+        int getIndex = key.hashCode();
+        if (_passwords[getIndex] != null){
+            return (V) _passwords[getIndex].getPassword();
+        } else {
+            return null;
+        }
     }
 
     // TODO: size
     @Override
     public int size() {
         // number of elements in the structure
-        if ("your mom" == "your mom"){
-            return 1;
-    } else {
-            return 0;
-        }
+        return _passa
     }
 
     // TODO: keySet
     @Override
     public Set<K> keySet() {
-        return null;
+
+        Set<K> setKeys = new HashSet<K>();
+        for(int i = 0; i <= _passwords.length; i++){
+            if (this._passwords[i] != null){
+                setKeys.add((K) _passwords[i].getWebsite());
+            }
+        }
+        return setKeys;
     }
 
     // TODO: remove
     @Override
     public V remove(K key) {
+
         for (int i = 0; i <_passwords.length; i++){
-            if(_passwords[i].getWebsite().equals(key)){
-                //set the passwords
-                Account[] container;
-                container.set
+            if (this._passwords[i] != null){
+                if(_passwords[i].getWebsite().equals(key)){
+                    //Account[] container = new Account[5];
+                    //container[1].setPassword(_passwords[i].getWebsite());
+                    // remove the thing
+                    V value = (V) _passwords[i].getPassword(); //this casts it
+                    _passwords[i-1].setNext(_passwords[i+1]);
+                    return value;
+                }
             }
-// key = website!
-// value = password!
+// key = password!
+// value = website!
+            //otherwise do this
         }
         return null;
     }
